@@ -1,0 +1,31 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  customManagers: [
+    {
+      customType: "regex",
+      fileMatch: ["CMakeLists\\.txt$", "\\.cmake$"],
+      matchStringsStrategy: "combination",
+      datasourceTemplate: "github-tag",
+      extractVersionTemplate: "^release-(?<version>.+)$",
+      matchStrings: [
+        "FetchContent_Declare(\\s*(?<depName>\\S+)\\s*",
+        "GIT_REPOSITORY\\s*(?<packageName>\\S+)\\s*",
+        "GIT_TAG\\s*(?<currentValue>\\S+)\\s*",
+      ]
+    },
+    {
+      // Special case for sqlite3 because we live in a hell world.
+      customType: "regex",
+      fileMatch: ["CMakeLists\\.txt$", "\\.cmake$"],
+      packageNameTemplate: "sqlite/sqlite",
+      datasourceTemplate: "github-tags",
+      extractVersionTemplate: "^version-(?<version>.+)",
+      matchStrings: [
+        "FetchContent_Declare\\((?<depName>\\S+)\\s+URL\\s+https://sqlite.org/\\d+/sqlite-amalgamation-(?<major>\\d)(?<minor>\\d{2})(?<patch>\\d{2})00.zip"
+      ],
+      // releaseTimestamp is used to get the year
+      autoReplaceStringTemplate: "FetchContent_Declare({{{depName}}} URL https://sqlite.org/{{{lookup (split releaseTimestamp '-') 0}}}/sqlite-amalgamation-{{{newMajor}}}{{{newMinor}}}{{{replace '^(\\d)$' '0$1' newPatch}}}00.zip",
+      currentValueTemplate: "{{{major}}}.{{{minor}}}.{{{replace '0(\\d)' '$1' patch}}}",
+    }
+  ]
+}

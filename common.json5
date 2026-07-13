@@ -1,0 +1,23 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  labels: ["renovate:dependencies"],
+  commitMessagePrefix: "⬆️",
+  commitMessageSuffix: "{{#if isLockfileUpdate}}🔒{{/if}}",
+  semanticCommits: "disabled",
+  rangeStrategy: "auto",
+  rebaseWhen: "behind-base-branch",
+  rollback: {
+    commitMessageAction: "Rollback",
+    commitMessagePrefix: "⏪"
+  },
+  pin: {
+    commitMessageAction: "Pin",
+    commitMessagePrefix: "📌",
+    commitMessageExtra: "to{{#if newVersion}} {{#if isMajor}}v{{{newMajor}}}{{else}}{{#if isSingleVersion}}v{{{newVersion}}}{{else}}{{{newValue}}}{{/if}}{{/if}}{{/if}}{{#if newDigestShort}} {{newDigestShort}}{{/if}}"
+  },
+  pinDigest: {
+    commitMessageAction: "Pin",
+    commitMessagePrefix: "📌",
+    commitMessageExtra: "to{{#if newVersion}} {{#if isMajor}}v{{{newMajor}}}{{else}}{{#if isSingleVersion}}v{{{newVersion}}}{{else}}{{{newValue}}}{{/if}}{{/if}}{{/if}}{{#if newDigestShort}} {{newDigestShort}}{{/if}}"
+  },
+}

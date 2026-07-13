@@ -1,0 +1,15 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  cargo: {
+    addLabels: ["renovate:rust"],
+    additionalBranchPrefix: "rust/",
+    commitMessagetopic: "🦀 Rust Crate {{{depName}}}",
+    rangeStrategy: "pin",
+    pin: {
+      gropName: "Rust",
+      group: {
+        commitMessageTopic: "🦀 {{{groupName}}} Crates"
+      }
+    },
+  }
+}

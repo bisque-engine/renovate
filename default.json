@@ -1,0 +1,11 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "bisque-engine/renovate:common.json5",
+    "bisque-engine/renovate:cmake.json5",
+    "bisque-engine/renovate:rust.json5",
+    "bisque-engine/renovate:tofu.json5",
+    "bisque-engine/renovate:gha.json5",
+    ":gitSignOff"
+  ]
+}
